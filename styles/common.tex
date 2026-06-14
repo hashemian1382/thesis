@@ -16,9 +16,24 @@
 
 \usepackage{algorithmicx,algorithm}
 
-\usepackage[localise=on,extrafootnotefeatures]{xepersian}
+% سازگاری با نسخه‌های مختلف xepersian:
+% - نسخه‌های جدید (۱۴۰۴ به بعد): گزینه «localize=on»
+% - نسخه‌های قدیمی: گزینه «localise=on»
+\IfFileExists{localize-xetex-xepersian.def}{%
+  \usepackage[localize=on,extrafootnotefeatures]{xepersian}%
+}{%
+  \usepackage[localise=on,extrafootnotefeatures]{xepersian}%
+}
 \usepackage[noend]{algpseudocode}
 \input{styles/alg-fa}
+
+
+% -------------------- Robust Footnote --------------------
+
+% بازتعریف مقاوم دستور پانویس تا در عناوین بخش‌ها (moving arguments)
+% و بوک‌مارک‌های PDF بدون خطا کار کند. در متن بدنه، پاورپیِ LTR ایجاد می‌شود
+% و در رشته‌های PDF (بوک‌مارک/فهرست) خروجی خالی تولید می‌کند.
+\RenewDocumentCommand{\پانویس}{m}{\texorpdfstring{\LTRfootnote{#1}}{}}
 
 
 % -------------------- Page Layout --------------------
